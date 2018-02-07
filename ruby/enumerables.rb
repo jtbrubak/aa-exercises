@@ -88,4 +88,55 @@ class Array
     reversed
   end
 
+  def bubble_sort!
+    finished = false
+    while !finished
+      finished = true
+      0.upto(self.length - 2) do |i|
+        if self[i] > self[i+1]
+          finished = false
+          self[i], self[i+1] = self[i+1], self[i]
+        end
+      end
+    end
+    self
+  end
+
+  def bubble_sort
+    sorted = self.dup
+    sorted.bubble_sort!
+  end
+
+end
+
+def factors(num)
+  factors = [1]
+  2.upto(num / 2) do |i|
+    factors.push(i) if num % i == 0
+  end
+  factors.push(num)
+  factors
+end
+
+def substrings(str)
+  substrings = []
+  used = {}
+  str.length.times do |i|
+    1.upto(str.length - 1) do |j|
+      substrings.push(str[i..j]) unless used[str[i..j]]
+    end
+  end
+  substrings
+end
+
+def subwords(word, dictionary)
+  subwords = []
+  used = {}
+  word.length.times do |i|
+    1.upto(word.length - 1) do |j|
+      subwords.push(word[i..j]) unless used[word[i..j]]
+      used[word[i..j]] = true
+    end
+  end
+  subwords.select { |sub| dictionary.include?(sub) }
 end
