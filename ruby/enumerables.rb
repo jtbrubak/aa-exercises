@@ -88,14 +88,23 @@ class Array
     reversed
   end
 
-  def bubble_sort!
+  def bubble_sort!(&blk)
     finished = false
     while !finished
       finished = true
-      0.upto(self.length - 2) do |i|
-        if self[i] > self[i+1]
-          finished = false
-          self[i], self[i+1] = self[i+1], self[i]
+      if block_given?
+        0.upto(self.length - 2) do |i|
+          if blk.call(self[i], self[i+1]) == 1
+            finished = false
+            self[i], self[i+1] = self[i+1], self[i]
+          end
+        end
+      else
+        0.upto(self.length - 2) do |i|
+          if self[i] > self[i+1]
+            finished = false
+            self[i], self[i+1] = self[i+1], self[i]
+          end
         end
       end
     end
