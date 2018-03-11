@@ -1,3 +1,4 @@
 class User < ApplicationRecord
-  validates :name, :email, presence: true
+  validates :username, presence: true, uniqueness: true
+  has_many :artworks, inverse_of: 'author'
 end
